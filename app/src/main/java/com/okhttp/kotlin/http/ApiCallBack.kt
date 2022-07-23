@@ -2,7 +2,7 @@ package com.gang.app.common.http
 
 import android.app.Activity
 import android.text.TextUtils
-import com.gang.kotlin.okhttp.callback.HttpCallBack
+import com.gang.okhttp.kotlin.callback.HttpCallBack
 import com.google.gson.Gson
 import com.orhanobut.logger.Logger
 import okhttp3.Call

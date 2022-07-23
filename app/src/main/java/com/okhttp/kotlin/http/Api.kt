@@ -1,7 +1,7 @@
 package com.okhttp.kotlin.http
 
-import com.gang.kotlin.okhttp.OkHttpUtils
-import com.gang.kotlin.okhttp.callback.HttpCallBack
+import com.gang.okhttp.kotlin.OkHttpUtils
+import com.gang.okhttp.kotlin.callback.HttpCallBack
 import com.gang.library.common.utils.getSpValue
 import com.lzy.okhttputils.model.HttpHeaders
 

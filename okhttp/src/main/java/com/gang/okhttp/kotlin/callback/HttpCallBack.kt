@@ -1,4 +1,4 @@
-package com.gang.kotlin.okhttp.callback
+package com.gang.okhttp.kotlin.callback
 
 import android.app.Activity
 import android.text.TextUtils

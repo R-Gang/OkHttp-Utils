@@ -1,4 +1,4 @@
-package com.gang.kotlin.okhttp
+package com.gang.okhttp.kotlin
 
 import com.gang.library.common.utils.transMap2String
 import com.lzy.okhttputils.OkHttpUtils
@@ -170,12 +170,12 @@ class OkHttpUtils {
 
     companion object {
 
-        val instance: com.gang.kotlin.okhttp.OkHttpUtils
+        val instance: com.gang.okhttp.kotlin.OkHttpUtils
             get() = SingletonHolder.INSTANCE
     }
 
     private object SingletonHolder {
-        var INSTANCE: com.gang.kotlin.okhttp.OkHttpUtils = OkHttpUtils()
+        var INSTANCE: com.gang.okhttp.kotlin.OkHttpUtils = OkHttpUtils()
     }
 
 }

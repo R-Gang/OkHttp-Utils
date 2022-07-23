@@ -11,7 +11,7 @@ import java.net.URI
  * App
  */
 object App {
-    const val applicationId = "com.okhttp.kotlin"
+    const val applicationId = "com.gang.okhttp"
 }
 
 /**

@@ -1,11 +1,9 @@
 package com.okhttp.kotlin.base
 
 import com.alibaba.android.arouter.launcher.ARouter
-import com.gang.kotlin.OkHttpInit
+import com.gang.okhttp.OkHttpInit
 import com.gang.library.BaseApplication
 import com.gang.library.common.user.Config
-import com.orhanobut.logger.AndroidLogAdapter
-import com.orhanobut.logger.Logger
 import com.okhttp.kotlin.BuildConfig
 
 /**

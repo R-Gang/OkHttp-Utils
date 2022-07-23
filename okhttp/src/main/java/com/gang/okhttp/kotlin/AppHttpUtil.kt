@@ -1,4 +1,4 @@
-package com.gang.kotlin.okhttp
+package com.gang.okhttp.kotlin
 
 import com.gang.library.common.utils.isNetConnected
 import com.lzy.okhttputils.callback.FileCallback

@@ -1,4 +1,4 @@
-package com.gang.kotlin
+package com.gang.okhttp
 
 import com.gang.library.common.user.Config
 import com.lzy.okhttputils.OkHttpUtils

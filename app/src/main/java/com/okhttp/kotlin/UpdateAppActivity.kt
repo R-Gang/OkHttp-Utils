@@ -4,7 +4,7 @@ import android.Manifest
 import android.os.Bundle
 import android.text.TextUtils
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.gang.kotlin.okhttp.AppHttpUtil
+import com.gang.okhttp.kotlin.AppHttpUtil
 import com.gang.library.common.utils.LogUtils
 import com.gang.library.common.utils.permissions.BasePermissionActivity
 import com.gang.library.common.utils.permissions.PermissionCallBackM

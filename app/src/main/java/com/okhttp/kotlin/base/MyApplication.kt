@@ -19,6 +19,7 @@ import com.okhttp.kotlin.BuildConfig
 class MyApplication : BaseApplication() {
     override fun onCreate() {
 
+        Config.isShowLog = BuildConfig.DEBUG
         Config.statusBarEnabled = false
 
         super.onCreate()
@@ -30,6 +31,7 @@ class MyApplication : BaseApplication() {
 
         ARouter.init(this)
 
+        Config.isOpenVersionUpdate = true
         OkHttpInit.initVersionupdate()
 
     }

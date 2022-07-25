@@ -64,7 +64,7 @@ dependencies {
     kapt Dependencies.arouter_compiler // kotlin开发情况
 
     // okhttp
-    implementation project(path: ':okhttp')
-
+//    implementation project(path: ':okhttp')
+    implementation 'com.github.R-Gang:Okhttp-Utils:v1.0.0-beta'
 
 }

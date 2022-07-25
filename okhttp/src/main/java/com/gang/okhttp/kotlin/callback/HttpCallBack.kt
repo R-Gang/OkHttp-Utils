@@ -2,9 +2,9 @@ package com.gang.okhttp.kotlin.callback
 
 import android.app.Activity
 import android.text.TextUtils
-import com.gang.kotlin.okhttp.progress.MyProgressDialog
 import com.gang.library.common.utils.isNetConnected
 import com.gang.library.common.utils.showToast
+import com.gang.library.common.view.progress.MyProgressDialog
 import com.google.gson.Gson
 import com.lzy.okhttputils.callback.AbsCallback
 import com.orhanobut.logger.Logger

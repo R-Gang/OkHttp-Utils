@@ -20,9 +20,9 @@ object App {
 object Android {
     const val kotlin = "1.6.10"
     const val gradle = "7.0.3"
-    const val compileSdkVersion = 32
+    const val compileSdkVersion = 31
     const val minSdkVersion = 26
-    const val targetSdkVersion = 32
+    const val targetSdkVersion = 31
     const val versionCode = 1
     const val versionName = "1.0"
 

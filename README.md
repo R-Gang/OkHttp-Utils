@@ -22,7 +22,7 @@
 ## 一行代码实现Okhttp网络请求封装工具
 ### 调用扩展OkHttpUtils
 
-####getRequest
+getRequest
 
 ```
    默认get调用
@@ -31,7 +31,7 @@
    OkHttpUtils.instance.getHeaderJsonRequest(tag, url, params, header, null, callBack)
 ```
 
-####postRequest
+postRequest
 
 ```
    post默认调用
@@ -44,80 +44,80 @@
 
 ### 版本更新封装
 
-####kotlin使用示例
+kotlin使用示例
 
 ```
-		val updateHandle = UpdateHandle(object : UpdateCallback {
+	val updateHandle = UpdateHandle(object : UpdateCallback {
 
-			override fun parseJson(
-				json: String,
-				updateAppBean: UpdateBean,
-			): UpdateAppBean {
+		override fun parseJson(
+			json: String,
+			updateAppBean: UpdateBean,
+		): UpdateAppBean {
 
-				val updateAppBean = UpdateBean()
-				try {
-					val jsonData = JSONObject(json)
-					val jsonObject = jsonData.getJSONObject("data")
-					updateAppBean.newVersionCode =
-						jsonObject.optString("appVersionCode")
-					updateAppBean.setUpdate(if (jsonObject.optString("ifShow") == "1") "Yes" else "No")
-						.setNewVersion(jsonObject.optString("appVersion"))
-						.setApkFileUrl(jsonObject.optString("apkFileUrl"))
-						.setUpdateLog(jsonObject.optString("description")).isConstraint =
-						jsonObject.optBoolean("constraint") && jsonObject.optString(
-							"ifUp") == "1"
-				} catch (e: Exception) {
-					e.printStackTrace()
-				}
-				return updateAppBean
-
+			val updateAppBean = UpdateBean()
+			try {
+				val jsonData = JSONObject(json)
+				val jsonObject = jsonData.getJSONObject("data")
+				updateAppBean.newVersionCode =
+					jsonObject.optString("appVersionCode")
+				updateAppBean.setUpdate(if (jsonObject.optString("ifShow") == "1") "Yes" else "No")
+					.setNewVersion(jsonObject.optString("appVersion"))
+					.setApkFileUrl(jsonObject.optString("apkFileUrl"))
+					.setUpdateLog(jsonObject.optString("description")).isConstraint =
+					jsonObject.optBoolean("constraint") && jsonObject.optString(
+						"ifUp") == "1"
+			} catch (e: Exception) {
+				e.printStackTrace()
 			}
+			return updateAppBean
 
-			override fun hasNewApp(
-				updateApp: UpdateAppBean,
-				updateAppManager: UpdateAppManager,
+		}
+
+		override fun hasNewApp(
+			updateApp: UpdateAppBean,
+			updateAppManager: UpdateAppManager,
+		) {
+
+			val clientVersionCode =
+				AppUpdateUtils.getVersionCode(this@UpdateAppActivity)
+			val serverVersionCode =
+				(updateApp as UpdateBean).newVersionCode!!.toInt()
+			val clientVersionName =
+				AppUpdateUtils.getVersionName(this@UpdateAppActivity)
+			val serverVersionName = updateApp.getNewVersion()
+			LogUtils.d(
+				"UpdateCallback11111",
+				"$clientVersionCode:$serverVersionCode:$clientVersionName:$serverVersionName"
+			)
+			//有新版本
+			if (!TextUtils.isEmpty(clientVersionName) && !TextUtils.isEmpty(
+					serverVersionName)
+				&& clientVersionCode < serverVersionCode && clientVersionName != serverVersionName
 			) {
-
-				val clientVersionCode =
-					AppUpdateUtils.getVersionCode(this@UpdateAppActivity)
-				val serverVersionCode =
-					(updateApp as UpdateBean).newVersionCode!!.toInt()
-				val clientVersionName =
-					AppUpdateUtils.getVersionName(this@UpdateAppActivity)
-				val serverVersionName = updateApp.getNewVersion()
 				LogUtils.d(
-					"UpdateCallback11111",
+					"UpdateCallback22222",
 					"$clientVersionCode:$serverVersionCode:$clientVersionName:$serverVersionName"
 				)
-				//有新版本
-				if (!TextUtils.isEmpty(clientVersionName) && !TextUtils.isEmpty(
-						serverVersionName)
-					&& clientVersionCode < serverVersionCode && clientVersionName != serverVersionName
-				) {
-					LogUtils.d(
-						"UpdateCallback22222",
-						"$clientVersionCode:$serverVersionCode:$clientVersionName:$serverVersionName"
-					)
-					// 使用方式1，调用系统默认的样式
-					// updateAppManager.showDialogFragment()
-					// 使用方式2，调用自定义的样式
-					showDialogFragment(this@UpdateAppActivity,
-						updateApp,
-						updateAppManager)
-				}
-
+				// 使用方式1，调用系统默认的样式
+				// updateAppManager.showDialogFragment()
+				// 使用方式2，调用自定义的样式
+				showDialogFragment(this@UpdateAppActivity,
+					updateApp,
+					updateAppManager)
 			}
 
-		})
+		}
 
-		//版本更新、需导入版本更新所需依赖
-		UpdateAppManager.Builder() //当前Activity
-			.setActivity(this@UpdateAppActivity) //更新地址
-			.setUpdateUrl(Constants.VERSION_PATH)
-			.handleException { obj: java.lang.Exception -> obj.printStackTrace() } //实现httpManager接口的对象
-			.setHttpManager(AppHttpUtil())
-			.build()
-			.checkNewApp(updateHandle)
+	})
+
+	//版本更新、需导入版本更新所需依赖
+	UpdateAppManager.Builder() //当前Activity
+		.setActivity(this@UpdateAppActivity) //更新地址
+		.setUpdateUrl(Constants.VERSION_PATH)
+		.handleException { obj: java.lang.Exception -> obj.printStackTrace() } //实现httpManager接口的对象
+		.setHttpManager(AppHttpUtil())
+		.build()
+		.checkNewApp(updateHandle)
 ```
 
 ## Reference

@@ -1,4 +1,4 @@
-package com.gang.app.common.http
+package com.okhttp.kotlin.http
 
 import android.app.Activity
 import android.text.TextUtils

@@ -29,7 +29,7 @@ class MyApplication : BaseApplication() {
 
         ARouter.init(this)
 
-        Config.isOpenVersionUpdate = true
+        initOkHttp.isOpenVersionUpdate = true
         initOkHttp.initVersionupdate()
 
     }

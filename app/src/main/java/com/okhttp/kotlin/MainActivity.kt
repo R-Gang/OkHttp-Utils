@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.alibaba.android.arouter.launcher.ARouter
-import com.gang.app.common.http.ApiCallBack
+import com.okhttp.kotlin.http.ApiCallBack
 import com.gang.library.bean.BaseDataModel
 import com.gang.library.common.utils.showToast
 import com.okhttp.kotlin.base.Constants

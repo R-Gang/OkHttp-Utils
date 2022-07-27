@@ -1,4 +1,4 @@
-package com.gang.library.common.utils.version
+package com.gang.okhttp.version
 
 import com.vector.update_app.UpdateAppBean
 

@@ -1,6 +1,5 @@
 package com.okhttp.kotlin.http
 
-import com.gang.app.common.http.ApiCallBack
 import com.okhttp.kotlin.base.Constants
 
 /**

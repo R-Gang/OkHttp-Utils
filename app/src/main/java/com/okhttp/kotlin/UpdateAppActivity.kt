@@ -8,10 +8,10 @@ import com.gang.okhttp.kotlin.AppHttpUtil
 import com.gang.library.common.utils.LogUtils
 import com.gang.library.common.utils.permissions.BasePermissionActivity
 import com.gang.library.common.utils.permissions.PermissionCallBackM
-import com.gang.library.common.utils.version.UpdateBean
-import com.gang.library.common.utils.version.UpdateCallback
-import com.gang.library.common.utils.version.UpdateHandle
-import com.gang.library.common.utils.version.UpdateHandle.Companion.showDialogFragment
+import com.gang.okhttp.version.UpdateBean
+import com.gang.okhttp.version.UpdateCallback
+import com.gang.okhttp.version.UpdateHandle
+import com.gang.okhttp.version.UpdateHandle.Companion.showDialogFragment
 import com.okhttp.kotlin.base.Constants
 import com.okhttp.kotlin.base.Constants.ACTIVITY_URL_UPDATEAPP
 import com.vector.update_app.UpdateAppBean

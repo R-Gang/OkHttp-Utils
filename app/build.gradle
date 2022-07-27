@@ -52,10 +52,13 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation Dependencies.androidx_multidex
 
-    implementation Support.appcompat
     testImplementation Support.junit
     androidTestImplementation Support.junit_ext
     androidTestImplementation Support.espresso_core
+
+    implementation Support.appcompat
+    implementation Support.constraintlayout
+    implementation Support.kotlin_stdlib_jdk8
 
 
     // ARouter 阿里路由
@@ -63,8 +66,20 @@ dependencies {
     // annotationProcessor Dependencies.arouter_compiler // Java开发情况
     kapt Dependencies.arouter_compiler // kotlin开发情况
 
+
+    implementation Dependencies.okhttputils
+    implementation Dependencies.gson
+    implementation Dependencies.update_app
+
+    implementation Dependencies.logger
+    implementation Dependencies.loadingDialog
+
+    implementation Dependencies.cardview
+    // 常用基类封装
+    implementation Dependencies.android_common
+
     // okhttp
-    implementation project(path: ':okhttp')
-//    implementation 'com.github.R-Gang:Okhttp-Utils:v1.0.0-beta.2@aar'
+     implementation project(path: ':okhttp')
+//    implementation 'com.github.R-Gang:Okhttp-Utils:v1.0.0-beta.3@aar'
 
 }

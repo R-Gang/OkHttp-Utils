@@ -61,6 +61,7 @@ object Dependencies {
     const val androidx_multidex = "androidx.multidex:multidex:2.0.1" // Dex处理
 
     const val okhttputils = "com.lzy.net:okhttputils:1.8.1" // 可以单独使用，不需要依赖下方的扩展包
+    const val okhttp_logging_interceptor = "com.squareup.okhttp3:logging-interceptor:4.9.1" //非必要依赖，打印日志
     const val gson = "com.google.code.gson:gson:2.8.6" // gson
     const val update_app = "com.qianwen:update-app:3.5.2" // 版本更新okhttp-utils
 

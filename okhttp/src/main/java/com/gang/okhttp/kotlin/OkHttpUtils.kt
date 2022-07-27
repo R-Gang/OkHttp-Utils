@@ -145,12 +145,12 @@ class OkHttpUtils {
         httpParams: HttpParams?,
         callBack: HandlerParams?,
     ) {
-//        val access_token = getSpValue("access_token", "")
+        // val access_token = getSpValue("access_token", "")
 
         var header = HttpHeaders()
         if (headers == null) {
             header.put("Content-Type", "application/x-www-form-urlencoded")
-//            header.put("Authorization", "Bearer $access_token")
+            // header.put("Authorization", "Bearer $access_token")
             header.put("Accept", "application/json")
         } else {
             header = headers

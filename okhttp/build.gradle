@@ -66,21 +66,22 @@ android {
 }
 
 dependencies {
-    api fileTree(dir: 'libs', include: ['*.jar'])
-    api Support.constraintlayout
-    api Support.appcompat
-    api Support.kotlin_stdlib_jdk8
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation Support.constraintlayout
+    implementation Support.appcompat
+    implementation Support.kotlin_stdlib_jdk8
 
-    api Dependencies.okhttputils
-    api Dependencies.gson
-    api Dependencies.update_app
+    implementation Dependencies.okhttputils
+    implementation Dependencies.okhttp_logging_interceptor
+    implementation Dependencies.gson
+    implementation Dependencies.update_app
 
-    api Dependencies.logger
-    api Dependencies.loadingDialog
+    implementation Dependencies.logger
+    implementation Dependencies.loadingDialog
 
-    api Dependencies.cardview
+    implementation Dependencies.cardview
     // 常用基类封装
-    api Dependencies.android_common
+    implementation Dependencies.android_common
 
 }
 

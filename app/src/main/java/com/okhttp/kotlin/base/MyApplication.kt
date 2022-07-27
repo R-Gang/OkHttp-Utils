@@ -1,9 +1,9 @@
 package com.okhttp.kotlin.base
 
 import com.alibaba.android.arouter.launcher.ARouter
-import com.gang.okhttp.OkHttpInit
 import com.gang.library.BaseApplication
 import com.gang.library.common.user.Config
+import com.gang.okhttp.initOkHttp
 import com.okhttp.kotlin.BuildConfig
 
 /**
@@ -30,7 +30,7 @@ class MyApplication : BaseApplication() {
         ARouter.init(this)
 
         Config.isOpenVersionUpdate = true
-        OkHttpInit.initVersionupdate()
+        initOkHttp.initVersionupdate()
 
     }
 

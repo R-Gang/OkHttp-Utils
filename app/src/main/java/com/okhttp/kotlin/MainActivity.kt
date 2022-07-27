@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
                     Logger.e("copyMode===the src is not existed")
                 }
 
-                override fun onFail(statusCode: Int, errorMsg: String?) {
+                override fun onFail(statusCode: Int?, errorMsg: String?) {
                     showToast(errorMsg)
                 }
 

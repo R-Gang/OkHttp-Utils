@@ -10,18 +10,14 @@ package com.gang.okhttp.kotlin.callback
  * @CreateDate:     2020/8/3 15:56
  */
 open interface IHttpCallBack<T> {
-    fun onSuccess(data: T)
-    fun onFail(statusCode: Int, errorMsg: String?)
+    fun onSuccess(data: T?)
+    fun onFail(statusCode: Int?, errorMsg: String?)
     fun onError(throwable: Throwable?)
 }
 
-open class IHttpManager<T> : IHttpCallBack<T> {
+open interface IHttpManager<T> : IHttpCallBack<T> {
 
-    override fun onSuccess(data: T) {
-
-    }
-
-    override fun onFail(statusCode: Int, errorMsg: String?) {
+    override fun onFail(statusCode: Int?, errorMsg: String?) {
 
     }
 

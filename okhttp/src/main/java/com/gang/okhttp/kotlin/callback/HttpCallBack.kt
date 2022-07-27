@@ -24,7 +24,7 @@ import java.lang.reflect.Type
  * @Author:         haoruigang
  * @CreateDate:     2020/8/3 15:54
  */
-abstract class HttpCallBack<T> : AbsCallback<Any?>, IHttpCallBack<T?> {
+abstract class HttpCallBack<T> : AbsCallback<Any?>, IHttpManager<T?> {
 
     constructor() {}
 
@@ -46,7 +46,7 @@ abstract class HttpCallBack<T> : AbsCallback<Any?>, IHttpCallBack<T?> {
 
     @Throws(Exception::class)
     override fun parseNetworkResponse(response: Response?): Any? {
-        return response?.body()?.string()
+        return response?.body?.string()
     }
 
     //  成功回调
@@ -91,29 +91,33 @@ abstract class HttpCallBack<T> : AbsCallback<Any?>, IHttpCallBack<T?> {
         dismiss()
         if (!isNetConnected()) {
             showToast("NetWork Error")
-        } else if (response?.code() == 503) {
+        } else if (response?.code == 503) {
             showToast("服务器重启中...")
         } else {
             showToast("网络错误")
         }
         onError(e)
-        super.onError(call, response, e)
     }
 
     companion object {
-        var dialog: MyProgressDialog? = null
+
+        val TAG = "HttpCallBack"
 
         fun getTType(clazz: Class<*>): Type? {
             val mySuperClassType = clazz.genericSuperclass
-            val types =
-                (mySuperClassType as ParameterizedType?)!!.actualTypeArguments
-            return if (types.isNotEmpty()) {
-                types[0]
-            } else null
+            val types = (mySuperClassType as ParameterizedType?)?.actualTypeArguments
+            types?.apply {
+                return if (isNotEmpty()) {
+                    this[0]
+                } else null
+            }
+            return null
         }
 
-        fun dismiss() {
-            if (null != dialog && dialog!!.isShowing()) dialog?.dismiss()
-        }
+    }
+
+    var dialog: MyProgressDialog? = null
+    fun dismiss() {
+        if (null != dialog && dialog!!.isShowing()) dialog?.dismiss()
     }
 }

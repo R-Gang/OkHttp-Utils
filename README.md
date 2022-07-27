@@ -13,16 +13,13 @@
          implementation 'com.github.R-Gang:OkHttp-Utils:latest.integration'
     }
 
-[comment]: <> (![line_chart.gif]&#40;https://github.com/R-Gang/Chart-Popup/blob/master/images/line_chart.gif&#41;)
-
-
 
 ## Usage
 
 ## 一行代码实现Okhttp网络请求封装工具
 ### 调用扩展OkHttpUtils
 
-getRequest
+	getRequest
 
 ```
    默认get调用
@@ -31,7 +28,7 @@ getRequest
    OkHttpUtils.instance.getHeaderJsonRequest(tag, url, params, header, null, callBack)
 ```
 
-postRequest
+	postRequest
 
 ```
    post默认调用
@@ -44,7 +41,7 @@ postRequest
 
 ### 版本更新封装
 
-kotlin使用示例
+	kotlin使用示例
 
 ```
 	val updateHandle = UpdateHandle(object : UpdateCallback {

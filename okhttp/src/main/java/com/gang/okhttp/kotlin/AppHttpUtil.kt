@@ -65,7 +65,7 @@ class AppHttpUtil : HttpManager {
             val code = response.code
             return if (code >= 500) {
                 "服务器异常，请稍候重试"
-            } else if (code < 500 && code >= 400) {
+            } else if (code in 400..499) {
                 "接口异常，请稍候重试"
             } else {
                 String.format("未知异常 code = %d，请稍候重试", code)

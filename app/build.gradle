@@ -80,6 +80,6 @@ dependencies {
 
     // okhttp
      implementation project(path: ':okhttp')
-//    implementation 'com.github.R-Gang:Okhttp-Utils:v1.0.0-beta.4@aar'
+//    implementation 'com.github.R-Gang:Okhttp-Utils:v1.0.0-beta.6@aar'
 
 }

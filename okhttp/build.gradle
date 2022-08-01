@@ -79,7 +79,6 @@ dependencies {
     implementation Dependencies.logger
     implementation Dependencies.loadingDialog
 
-    implementation Dependencies.cardview
     // 常用基类封装
     implementation Dependencies.android_common
 

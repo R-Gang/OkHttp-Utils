@@ -51,7 +51,7 @@ object Support {
 object Dependencies {
 
     const val cardview = "androidx.cardview:cardview:1.0.0@aar"
-    const val android_common = "com.github.R-Gang:Android-Common:v0.1.6-beta.3@aar"
+    const val android_common = "com.github.R-Gang:Android-Common:v0.1.6-beta.6@aar"
     // 常用类封装(以上为基本类关联依赖)
 
     const val arouter_register = "com.alibaba:arouter-register:1.0.2"

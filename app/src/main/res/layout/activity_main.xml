@@ -39,8 +39,15 @@
                 android:layout_marginStart="5dp"
                 android:layout_toEndOf="@id/btnBindable"
                 android:onClick="@{()->mainData.onToUpdateApp()}"
-                android:text="版本更新演示" />
+                android:text="@string/update_demo" />
 
+            <com.gang.okhttp.kotlin.empty.LoadingFrameView
+                android:id="@+id/loadingFrame"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                app:fv_noIcon="@mipmap/icon_no_info"
+                app:fv_noInfo="@string/string_empty_no_info" />
 
         </RelativeLayout>
 

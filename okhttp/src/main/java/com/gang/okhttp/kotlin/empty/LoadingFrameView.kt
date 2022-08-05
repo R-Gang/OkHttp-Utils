@@ -1,9 +1,11 @@
 package com.gang.okhttp.kotlin.empty
 
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.text.TextUtils
 import android.util.AttributeSet
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import android.widget.RelativeLayout
@@ -12,7 +14,6 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.gang.okhttp.R
 import com.gang.okhttp.databinding.LoadingFrameLayoutBinding
-import com.xiasuhuei321.loadingdialog.view.LVCircularRing
 
 /**
  * Android 抽象布局 减少视图层级
@@ -27,47 +28,43 @@ class LoadingFrameView @JvmOverloads constructor(
     defStyleAttr: Int = 0,
 ) : RelativeLayout(context, attrs, defStyleAttr) {
 
-    val mBinding = LoadingFrameLayoutBinding.bind(this)
+    var mFrameBinding: LoadingFrameLayoutBinding? =
+        LoadingFrameLayoutBinding.inflate(LayoutInflater.from(context))
+
+    var llContent = mFrameBinding?.llContent
 
     /**
-     * 加载中
+     * 无内容
      *
      * @return
      */
-    var loadInfoPb: LVCircularRing? = mBinding.progressContainer.loadInfoPb
-
-    /**
-     * 加载中文字
-     *
-     * @return
-     */
-    var loadInfo: TextView? = mBinding.progressContainer.loadInfo
-    var noInfoPic: ImageView? = mBinding.noInfoPic
-    var noInfo: TextView? = mBinding.noInfo
+    var noInfoPic: ImageView? = mFrameBinding?.noInfoPic
+    var noInfo: TextView? = mFrameBinding?.noInfo
 
     /**
      * 加载失败图片
      *
      * @return
      */
-    var ivRepeatPic: ImageView? = mBinding.ivRepeatPic
+    var ivRepeatPic: ImageView? = mFrameBinding?.ivRepeatPic
 
     /**
      * 加载失败文字
      *
      * @return
      */
-    var tvRepeatInfo: TextView? = mBinding.tvRepeatInfo
+    var tvRepeatInfo: TextView? = mFrameBinding?.tvRepeatInfo
 
     /**
      * 加载失败按钮
      *
      * @return
      */
-    var tvTry: TextView? = mBinding.tvTry
+    var tvTry: TextView? = mFrameBinding?.tvTry
 
     // 当前布局显示状态
     private var lastItem = 0
+
 
     override fun onFinishInflate() {
         super.onFinishInflate()
@@ -75,31 +72,9 @@ class LoadingFrameView @JvmOverloads constructor(
         val index = NO_ITEM + 1 // 从此处起始,添加所有用户自定义view
         // 这里不能用i++,因为removeView之后,角标自动前移.就能拿到后面的view
         while (index < childCount) {
-            val childView = getChildAt(index)
+            val childView = llContent?.getChildAt(index)
             removeView(childView)
-            mBinding.container.addView(childView)
-        }
-    }
-
-    /**
-     * 设置加载中提示信息
-     *
-     * @param info 设置加载中提示信息
-     */
-    fun setEmptyInfo(info: String?) {
-        if (null != loadInfo) {
-            loadInfo?.text = info
-        }
-    }
-
-    /**
-     * 设置加载中提示信息
-     *
-     * @param resId 设置加载中提示信息
-     */
-    fun setEmptyInfo(@StringRes resId: Int) {
-        if (null != loadInfo) {
-            loadInfo?.setText(resId)
+            mFrameBinding?.container?.addView(childView)
         }
     }
 
@@ -142,9 +117,9 @@ class LoadingFrameView @JvmOverloads constructor(
      * @param view 设置自定义布局
      */
     fun setCustomView(view: View?) {
-        if (null != mBinding.customLl) {
-            mBinding.customLl.removeAllViews()
-            mBinding.customLl.addView(view)
+        if (null != mFrameBinding?.customLl) {
+            mFrameBinding?.customLl?.removeAllViews()
+            mFrameBinding?.customLl?.addView(view)
         }
     }
 
@@ -285,8 +260,8 @@ class LoadingFrameView @JvmOverloads constructor(
      * @param animate true:显示 false:隐藏
      */
     fun setErrorShown(
-        animate: Boolean,
-        clickListener: OnClickListener?,
+        animate: Boolean? = true,
+        clickListener: OnClickListener? = null,
     ) {
         if (null != clickListener) {
             tvTry?.setOnClickListener(clickListener)
@@ -328,16 +303,21 @@ class LoadingFrameView @JvmOverloads constructor(
      */
     private fun setFrame(
         item: Int,
-        animate: Boolean,
+        animate: Boolean? = false,
         unChecked: Boolean,
     ) {
-        if (null != mBinding.container && (unChecked || item != lastItem)) {
-            val showView = getChildAt(item)
-            val closeView = getChildAt(lastItem)
-            showView.clearAnimation()
-            closeView.clearAnimation()
-            showView.visibility = View.VISIBLE
-            closeView.visibility = View.GONE
+        if (unChecked || item != lastItem) {
+            val showView = llContent?.getChildAt(item)
+            val closeView = llContent?.getChildAt(lastItem)
+            if (animate == true) {
+                val fadeAnim = ObjectAnimator.ofFloat(showView, "alpha", 0f, 1f)
+                fadeAnim.duration = 200
+                fadeAnim.start()
+            }
+            showView?.clearAnimation()
+            closeView?.clearAnimation()
+            showView?.visibility = View.VISIBLE
+            closeView?.visibility = View.GONE
             lastItem = item
         }
     }
@@ -381,17 +361,14 @@ class LoadingFrameView @JvmOverloads constructor(
     }
 
     init {
+        addView(mFrameBinding?.root)
         val a = context.obtainStyledAttributes(attrs, R.styleable.LoadingFrameView)
-        val info = a.getString(R.styleable.LoadingFrameView_fv_emptyInfo)
         val noinfo = a.getString(R.styleable.LoadingFrameView_fv_noInfo)
         val repeatInfo = a.getString(R.styleable.LoadingFrameView_fv_repeatInfo)
         val bt = a.getString(R.styleable.LoadingFrameView_fv_repeatBt)
-        if (!TextUtils.isEmpty(info)) setEmptyInfo(info)
         if (!TextUtils.isEmpty(noinfo)) setNoInfo(noinfo)
         if (!TextUtils.isEmpty(repeatInfo)) setRepeatInfo(repeatInfo)
         if (!TextUtils.isEmpty(bt)) setRepeatBt(bt)
-        /*emptyIcon =
-            a.getResourceId(R.styleable.LoadingFrameView_fv_emptyIcon, R.mipmap.icon_empty);*/
         setNoIcon(a.getResourceId(R.styleable.LoadingFrameView_fv_noIcon, R.mipmap.icon_empty))
         setRepeatIcon(
             a.getResourceId(
@@ -400,6 +377,6 @@ class LoadingFrameView @JvmOverloads constructor(
             )
         )
         a.recycle()
-        setFrame(PROGRESS_ITEM)
+        //setFrame(PROGRESS_ITEM)
     }
 }

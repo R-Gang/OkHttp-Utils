@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Okhttp-Utils</string>
 
+    <string name="update_demo">版本更新演示</string>
+    <string name="string_empty_no_info">暂未加入任何社群\n可通过扫码参与互动\t\t加入社群</string>
+
 </resources>

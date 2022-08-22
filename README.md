@@ -13,10 +13,10 @@
          implementation 'com.github.R-Gang:OkHttp-Utils:latest.integration'
     }
 
-
 ## Usage
 
 ## 一行代码实现Okhttp网络请求封装工具
+
 ### 调用扩展OkHttpUtils
 
 	getRequest
@@ -44,6 +44,10 @@
 	kotlin使用示例
 
 ```
+
+    Config.isOpenVersionUpdate = true
+    initOkHttp.initVersionupdate()
+        
 	val updateHandle = UpdateHandle(object : UpdateCallback {
 
 		override fun parseJson(

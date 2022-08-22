@@ -28,13 +28,13 @@ class MyApplication : BaseApplication() {
             ARouter.openLog()
             ARouter.openDebug()
         }
-
         ARouter.init(this)
+
+        initToolsUtils(this)
 
         Config.isOpenVersionUpdate = true
         initOkHttp.initVersionupdate()
 
-        initToolsUtils(this)
 
     }
 

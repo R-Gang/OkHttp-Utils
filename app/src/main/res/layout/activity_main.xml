@@ -20,7 +20,7 @@
             android:id="@+id/txtBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/blue_common"
+            android:background="@color/purple_200"
             app:layout_constraintTop_toTopOf="parent">
 
             <Button

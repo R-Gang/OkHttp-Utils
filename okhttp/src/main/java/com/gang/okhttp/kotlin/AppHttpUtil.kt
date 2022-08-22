@@ -1,6 +1,6 @@
 package com.gang.okhttp.kotlin
 
-import com.gang.library.common.utils.isNetConnected
+import com.gang.tools.kotlin.utils.isNetConnected
 import com.lzy.okhttputils.callback.FileCallback
 import com.lzy.okhttputils.callback.StringCallback
 import com.lzy.okhttputils.request.BaseRequest

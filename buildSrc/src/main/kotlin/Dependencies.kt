@@ -49,21 +49,23 @@ object Support {
  * 第三方库依赖
  * */
 object Dependencies {
-
-    const val cardview = "androidx.cardview:cardview:1.0.0@aar"
     const val android_common = "com.github.R-Gang:Android-Common:v0.1.6-beta.6@aar"
-    // 常用类封装(以上为基本类关联依赖)
+
+    const val tools_utils = "com.github.R-Gang:Tools-Utils:v1.0.0"
+
+    const val androidx_multidex = "androidx.multidex:multidex:2.0.1" // Dex处理
 
     const val arouter_register = "com.alibaba:arouter-register:1.0.2"
     const val arouter_api = "com.alibaba:arouter-api:1.5.2"
     const val arouter_compiler = "com.alibaba:arouter-compiler:1.5.2"
 
-    const val androidx_multidex = "androidx.multidex:multidex:2.0.1" // Dex处理
-
     const val okhttputils = "com.lzy.net:okhttputils:1.8.1" // 可以单独使用，不需要依赖下方的扩展包
-    const val okhttp_logging_interceptor = "com.squareup.okhttp3:logging-interceptor:4.9.1" //非必要依赖，打印日志
+    const val okhttp_logging_interceptor =
+        "com.squareup.okhttp3:logging-interceptor:4.9.1" //非必要依赖，打印日志
     const val gson = "com.google.code.gson:gson:2.8.6" // gson
     const val update_app = "com.qianwen:update-app:3.5.2" // 版本更新okhttp-utils
+
+    const val aliyun_oss = "com.aliyun.dpa:oss-android-sdk:2.9.5" // aliyun
 
     const val logger = "com.orhanobut:logger:2.2.0" // 日志工具类 logger
     const val loadingDialog = "com.github.ForgetAll:LoadingDialog:v1.1.2" // LoadingDialog

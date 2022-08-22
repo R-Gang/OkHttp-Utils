@@ -6,8 +6,8 @@ import android.text.TextUtils
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.gang.library.common.ext.permissions.BasePermissionActivity
 import com.gang.library.common.ext.permissions.PermissionCallBackM
-import com.gang.okhttp.kotlin.AppHttpUtil
 import com.gang.library.common.utils.LogUtils
+import com.gang.okhttp.kotlin.AppHttpUtil
 import com.gang.okhttp.version.UpdateBean
 import com.gang.okhttp.version.UpdateCallback
 import com.gang.okhttp.version.UpdateHandle

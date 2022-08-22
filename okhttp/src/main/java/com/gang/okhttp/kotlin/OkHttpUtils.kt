@@ -1,6 +1,6 @@
 package com.gang.okhttp.kotlin
 
-import com.gang.library.common.utils.transMap2String
+import com.gang.tools.kotlin.utils.transMap2String
 import com.lzy.okhttputils.OkHttpUtils
 import com.lzy.okhttputils.callback.AbsCallback
 import com.lzy.okhttputils.model.HttpHeaders

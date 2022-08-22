@@ -4,11 +4,11 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.alibaba.android.arouter.launcher.ARouter
-import com.okhttp.kotlin.http.ApiCallBack
 import com.gang.library.bean.BaseDataModel
-import com.gang.library.common.utils.showToast
+import com.gang.tools.kotlin.utils.showToast
 import com.okhttp.kotlin.base.Constants
 import com.okhttp.kotlin.databinding.ActivityMainBinding
+import com.okhttp.kotlin.http.ApiCallBack
 import com.okhttp.kotlin.http.HttpManager
 import com.orhanobut.logger.Logger
 import java.util.*
@@ -64,6 +64,19 @@ class MainActivity : AppCompatActivity() {
         ARouter.getInstance()
             .build(Constants.ACTIVITY_URL_UPDATEAPP)
             .navigation(this)
+    }
+
+
+    private var headImage: String? = ""
+    fun aliyunOss() {
+        /*val mImageName =
+            DateUtils.getCurTimeLong("yyyyMMddHHmmss") + UserManager.INSTANCE.userData.user_id + ".jpg"
+        //Url
+        if (mImageName != "") {
+            headImage = Config.OSS_URL + mImageName
+        }*/
+        // 阿里云使用方式
+        // AliYunOss.getInstance(this)?.upload(mImageName, "", null)
     }
 
 }

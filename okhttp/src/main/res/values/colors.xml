@@ -3,5 +3,8 @@
 
     <color name="color_20a0da">#20A0DA</color>
     <color name="color_50000000">#80000000</color>
+    <color name="color_9">#999</color>
+    <color name="color_3">#333</color>
+    <color name="blueHome">#4aa0fe</color>
 
 </resources>

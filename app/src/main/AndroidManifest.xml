@@ -12,9 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Okhttp_Utils">
-        <activity
-            android:name="com.okhttp.kotlin.UpdateAppActivity"
-            android:exported="false" />
+        <activity android:name="com.okhttp.kotlin.UpdateAppActivity" />
         <activity
             android:name="com.okhttp.kotlin.MainActivity"
             android:exported="true">

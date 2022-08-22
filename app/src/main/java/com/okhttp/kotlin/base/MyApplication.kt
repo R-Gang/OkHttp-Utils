@@ -2,8 +2,9 @@ package com.okhttp.kotlin.base
 
 import com.alibaba.android.arouter.launcher.ARouter
 import com.gang.library.BaseApplication
-import com.gang.library.common.user.Config
+import com.gang.okhttp.Config
 import com.gang.okhttp.initOkHttp
+import com.gang.tools.kotlin.utils.initToolsUtils
 import com.okhttp.kotlin.BuildConfig
 
 /**
@@ -17,10 +18,11 @@ import com.okhttp.kotlin.BuildConfig
 class MyApplication : BaseApplication() {
     override fun onCreate() {
 
-        Config.isShowLog = BuildConfig.DEBUG
-        Config.statusBarEnabled = false
+        com.gang.library.common.user.Config.statusBarEnabled = false
 
         super.onCreate()
+
+        com.gang.tools.kotlin.Config.isShowLog = BuildConfig.DEBUG
 
         if (BuildConfig.DEBUG) {
             ARouter.openLog()
@@ -29,8 +31,10 @@ class MyApplication : BaseApplication() {
 
         ARouter.init(this)
 
-        initOkHttp.isOpenVersionUpdate = true
+        Config.isOpenVersionUpdate = true
         initOkHttp.initVersionupdate()
+
+        initToolsUtils(this)
 
     }
 

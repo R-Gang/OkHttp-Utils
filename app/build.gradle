@@ -71,15 +71,18 @@ dependencies {
     implementation Dependencies.gson
     implementation Dependencies.update_app
 
+    implementation Dependencies.aliyun_oss
+
     implementation Dependencies.logger
     implementation Dependencies.loadingDialog
 
-    implementation Dependencies.cardview
-    // 常用基类封装
+    // 常用类封装
     implementation Dependencies.android_common
+    // 常用工具类
+    implementation Dependencies.tools_utils
 
     // okhttp
-     implementation project(path: ':okhttp')
+    implementation project(path: ':okhttp')
 //    implementation 'com.github.R-Gang:Okhttp-Utils:v1.0.0-beta.6@aar'
 
 }

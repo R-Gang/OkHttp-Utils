@@ -39,8 +39,8 @@
             android:id="@+id/tv_update_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:lineSpacingExtra="4dp"
             android:text="1，xxxxxxxx\n2，ooooooooo"
-            android:lineSpacingExtra="@dimen/margin_size_4"
             android:textColor="#333333"
             android:textSize="16sp" />
     </ScrollView>
@@ -55,22 +55,22 @@
         <Button
             android:id="@+id/btn_close"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/margin_size_40"
+            android:layout_height="40dp"
             android:background="@mipmap/icon_cancel" />
 
         <Button
             android:id="@+id/btn_ok"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/margin_size_40"
-            android:layout_marginLeft="@dimen/margin_size_20"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
             android:background="@mipmap/icon_update" />
     </LinearLayout>
 
     <Button
         android:id="@+id/btn_up_ok"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/margin_size_40"
-        android:visibility="gone"
-        android:background="@mipmap/icon_update1" />
+        android:layout_height="40dp"
+        android:background="@mipmap/icon_update1"
+        android:visibility="gone" />
 
 </LinearLayout>

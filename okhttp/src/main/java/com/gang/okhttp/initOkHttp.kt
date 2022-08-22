@@ -1,6 +1,7 @@
 package com.gang.okhttp
 
 import android.util.Log
+import com.lzy.okhttputils.BuildConfig
 import com.lzy.okhttputils.OkHttpUtils
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -16,14 +17,12 @@ object initOkHttp {
 
     val TAG = "initOkhttp"
 
-    // 开启版本更新功能
-    var isOpenVersionUpdate = false
 
     fun initVersionupdate() {
         // 版本更新
-        if (isOpenVersionUpdate) {
+        if (Config.isOpenVersionUpdate) {
             // okhttp-utils
-            okHttpUtils(20 * 1000).debug(TAG, true)
+            okHttpUtils(20 * 1000).debug(TAG, BuildConfig.DEBUG)
         }
     }
 

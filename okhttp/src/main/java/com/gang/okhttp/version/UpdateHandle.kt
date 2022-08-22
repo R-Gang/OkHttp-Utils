@@ -10,8 +10,8 @@ import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.app.ActivityCompat
-import com.gang.library.common.utils.typefaceAll
 import com.gang.okhttp.R
+import com.gang.tools.kotlin.utils.typefaceAll
 import com.vector.update_app.UpdateAppBean
 import com.vector.update_app.UpdateAppManager
 import com.vector.update_app.utils.AppUpdateUtils

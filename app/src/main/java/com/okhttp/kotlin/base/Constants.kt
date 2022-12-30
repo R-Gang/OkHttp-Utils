@@ -11,6 +11,8 @@ package com.okhttp.kotlin.base
  */
 object Constants {
 
+    val Authorization = "Basic aGVyby1kYW5hLXVzZXI6aGVyby1kYW5hLXVzZXI="
+
     const val ACTIVITY_URL_UPDATEAPP = "/simple/UpdateAppActivity"
 
 

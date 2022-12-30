@@ -3,6 +3,7 @@ package com.okhttp.kotlin.http
 import android.app.Activity
 import android.text.TextUtils
 import com.gang.okhttp.kotlin.callback.HttpCallBack
+import com.gang.tools.kotlin.utils.LogUtils
 import com.google.gson.Gson
 import com.orhanobut.logger.Logger
 import okhttp3.Call
@@ -44,32 +45,46 @@ abstract class ApiCallBack<T> : HttpCallBack<T> {
 
     //  成功回调
     override fun onSuccess(o: Any?, call: Call?, response: Response?) {
-        Logger.e("接口返回数据 $o")
-        try {
-            val jsonObject = JSONObject(o.toString())
-            statusCode = jsonObject.optInt("code")
-            data = jsonObject.optString("value")
-            errorMsg = jsonObject.optString("message")
-        } catch (e: JSONException) {
-            e.printStackTrace()
-        }
-        try {
-            dismiss()
-            val gsonType = getTType(this.javaClass)
-            if (statusCode == 0 || statusCode == 2000 && !TextUtils.isEmpty(o.toString())) {
-                if ("class java.lang.String" == gsonType.toString()) {
-                    onSuccess(o.toString() as T)
-                } else {
-                    val o1: T = Gson().fromJson(o.toString(), gsonType)
-                    onSuccess(o1)
+        response?.apply {
+            Logger.e(TAG + ":\n${call?.request()}")
+            try {
+                val jsonObject = JSONObject(o.toString())
+                statusCode = jsonObject.optInt("code")
+                data = jsonObject.optString("data")
+                errorMsg = jsonObject.optString("msg")
+            } catch (e: JSONException) {
+                e.printStackTrace()
+            }
+            if (code == 200) {
+                LogUtils.e(TAG, "接口返回数据 $o")
+                try {
+                    val gsonType = getTType(this@ApiCallBack.javaClass)
+                    if (statusCode == 0 && !TextUtils.isEmpty(o.toString())) {
+                        if ("class java.lang.String" == gsonType.toString()) {
+                            onSuccess(o.toString() as T)
+                        } else {
+                            val o1: T = Gson().fromJson(o.toString(), gsonType)
+                            onSuccess(o1)
+                        }
+                    } else {
+                        onFail(statusCode, errorMsg)
+                    }
+                } catch (e: Exception) {
+                    LogUtils.e(TAG, "Exception $e")
+                    onError(e)
                 }
             } else {
+                LogUtils.e(TAG, "接口错误 $o")
                 onFail(statusCode, errorMsg)
             }
-        } catch (e: Exception) {
-            Logger.e("Exception $e")
-            onError(e)
+
+            errorMsg?.apply {
+                if (contains("token expire")) { // TODO 重新登录
+
+                }
+            }
         }
+        dismiss()
     }
 
     companion object {

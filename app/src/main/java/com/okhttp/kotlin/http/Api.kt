@@ -1,14 +1,17 @@
 package com.okhttp.kotlin.http
 
-import com.gang.library.common.store.getSpValue
+import android.text.TextUtils
+import com.gang.library.common.store.SpExt.getSpValue
 import com.gang.okhttp.kotlin.OkHttpUtils
 import com.gang.okhttp.kotlin.callback.HttpCallBack
 import com.lzy.okhttputils.model.HttpHeaders
+import com.okhttp.kotlin.base.Constants
+import java.io.File
 
 /**
  *
  * @ClassName:      haoruigang
- * @Description:     java类作用描述
+ * @Description:    java类作用描述
  * @Author:         haoruigang
  * @CreateDate:     2021/9/6 14:45
  * @UpdateUser:     更新者：
@@ -22,6 +25,7 @@ class Api {
     /**
      * 参数调用
      * get
+     * @param tag
      * @param url
      * @param map
      * @param callBack
@@ -37,12 +41,14 @@ class Api {
                 val params = HashMap<String, String>()
                 params.putAll(map as HashMap) // 不加密的参数
 
-                val access_token = getSpValue("access_token", "")
-                val header = HttpHeaders()
-                header.put("Content-Type", "application/x-www-form-urlencoded")
-                header.put("Authorization", "Bearer $access_token")
-                header.put("Accept", "application/json")
-                OkHttpUtils.instance.getHeaderJsonRequest(tag, url, params, header, null, callBack)
+                OkHttpUtils.instance.getHeaderJsonRequest(
+                    tag,
+                    url,
+                    params,
+                    getHeaders(),
+                    null,
+                    callBack
+                )
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -54,8 +60,10 @@ class Api {
     /**
      * 参数调用
      * post
+     * @param tag
      * @param url
      * @param map
+     * @param json
      * @param callBack
      */
     fun postOkHttpJsonRequest(
@@ -70,18 +78,15 @@ class Api {
                 val params = HashMap<String, String>()
                 params.putAll(map as HashMap) // 不加密的参数
 
-                val access_token = getSpValue("access_token", "")
-                val header = HttpHeaders()
-                header.put("Content-Type", "application/x-www-form-urlencoded")
-                header.put("Authorization", "Bearer $access_token")
-                header.put("Accept", "application/json")
-                OkHttpUtils.instance.postHeaderJsonRequest(tag,
+                OkHttpUtils.instance.postHeaderJsonRequest(
+                    tag,
                     url,
                     params,
-                    header,
+                    getHeaders(),
                     null,
                     json,
-                    callBack)
+                    callBack
+                )
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -90,6 +95,44 @@ class Api {
         }
     }
 
+    /**
+     * 上传附件
+     * post
+     * @param tag
+     * @param url
+     * @param file  // 每次只能上传一张
+     * @param callBack
+     */
+    fun uploadFile(tag: String?, url: String, file: File, callBack: HttpCallBack<*>?) {
+        com.lzy.okhttputils.OkHttpUtils
+            .post(url)
+            .tag(tag)
+            .headers(getHeaders(true))
+            .addFileParams("file", arrayListOf(file)) // 附件
+            .execute(callBack)
+    }
+
+    /**
+     * 请求头
+     * @return header
+     */
+    fun getHeaders(isUploadFile: Boolean = false): HttpHeaders {
+        val access_token = getSpValue("access_token", "").toString()
+        val header = HttpHeaders()
+        /*header.put("Accept", "application/json")*/
+        if (TextUtils.isEmpty(access_token)) {
+            header.put("Content-Type", "application/x-www-form-urlencoded")
+            header.put("Authorization", Constants.Authorization)
+        } else if (isUploadFile) {
+            // 上传File请求头
+            header.put("Content-Type", "multipart/form-data")
+            header.put("Authorization", "Bearer $access_token")
+        } else {
+            header.put("Content-Type", "application/json")
+            header.put("Authorization", "Bearer $access_token")
+        }
+        return header
+    }
 
     companion object {
 

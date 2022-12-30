@@ -65,9 +65,12 @@ class OkHttpUtils {
         headers: HttpHeaders?,
         httpParams: HttpParams?,
         callBack: AbsCallback<*>?,
+        isShowLog: Boolean = false, // 默认不显示日志
     ) {
         if (map != null) {
-            Logger.e(tag + "\nget请求:$url,参数---${transMap2String(map)}")
+            if (isShowLog) {
+                Logger.e(tag + "\nget请求:$url,参数---${transMap2String(map)}")
+            }
 
             val params = HashMap<String, String>()
             params.putAll(map) // 不加密的参数
@@ -106,10 +109,13 @@ class OkHttpUtils {
         httpParams: HttpParams?,
         json: String? = "",
         callBack: AbsCallback<*>?,
+        isShowLog: Boolean = false, // 默认不显示日志
     ) {
         if (map != null) {
             try {
-                Logger.e(tag + "\npost请求:$url,参数---${transMap2String(map)}")
+                if (isShowLog) {
+                    Logger.e(tag + "\npost请求:$url,参数---${transMap2String(map)}")
+                }
 
                 val params = HashMap<String, String>()
                 params.putAll(map) // 不加密的参数
@@ -145,12 +151,9 @@ class OkHttpUtils {
         httpParams: HttpParams?,
         callBack: HandlerParams?,
     ) {
-        // val access_token = getSpValue("access_token", "")
-
         var header = HttpHeaders()
         if (headers == null) {
             header.put("Content-Type", "application/x-www-form-urlencoded")
-            // header.put("Authorization", "Bearer $access_token")
             header.put("Accept", "application/json")
         } else {
             header = headers

@@ -1,4 +1,4 @@
-package com.gang.library.bean
+package com.gang.okhttp.bean
 
 /**
  * Created by haoruigang on 2018-4-3 15:02:34.

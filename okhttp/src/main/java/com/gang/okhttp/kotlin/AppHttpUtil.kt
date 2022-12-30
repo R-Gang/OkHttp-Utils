@@ -62,7 +62,7 @@ class AppHttpUtil : HttpManager {
             }
         }
         if (response != null) {
-            val code = response.code
+            val code = response.code()
             return if (code >= 500) {
                 "服务器异常，请稍候重试"
             } else if (code in 400..499) {

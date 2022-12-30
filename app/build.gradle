@@ -68,6 +68,7 @@ dependencies {
 
 
     implementation Dependencies.okhttputils
+    implementation Dependencies.okhttp_logging_interceptor
     implementation Dependencies.gson
     implementation Dependencies.update_app
 
@@ -75,14 +76,16 @@ dependencies {
 
     implementation Dependencies.logger
     implementation Dependencies.loadingDialog
+    implementation Dependencies.permissions
 
     // 常用类封装
     implementation Dependencies.android_common
     // 常用工具类
     implementation Dependencies.tools_utils
 
+
     // okhttp
     implementation project(path: ':okhttp')
-//    implementation 'com.github.R-Gang:Okhttp-Utils:v1.0.0-beta.6@aar'
+
 
 }

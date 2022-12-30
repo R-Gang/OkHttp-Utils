@@ -1,4 +1,4 @@
-package com.gang.library.bean
+package com.gang.okhttp.bean
 
 import java.util.*
 

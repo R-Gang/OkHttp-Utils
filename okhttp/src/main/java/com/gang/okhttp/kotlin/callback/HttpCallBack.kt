@@ -2,7 +2,8 @@ package com.gang.okhttp.kotlin.callback
 
 import android.app.Activity
 import android.text.TextUtils
-import com.gang.library.common.view.progress.MyProgressDialog
+import com.gang.okhttp.kotlin.progress.MyProgressDialog
+import com.gang.tools.kotlin.utils.LogUtils
 import com.gang.tools.kotlin.utils.isNetConnected
 import com.gang.tools.kotlin.utils.showToast
 import com.google.gson.Gson
@@ -46,37 +47,44 @@ abstract class HttpCallBack<T> : AbsCallback<Any?>, IHttpManager<T?> {
 
     @Throws(Exception::class)
     override fun parseNetworkResponse(response: Response?): Any? {
-        return response?.body?.string()
+        return response?.body()?.string()
     }
 
     //  成功回调
     override fun onSuccess(o: Any?, call: Call?, response: Response?) {
-        Logger.e("接口返回数据\n$o")
-//        LogUtils.e(o.toString())
-        try {
-            val jsonObject = JSONObject(o.toString())
-            statusCode = jsonObject.optInt("status")
-            data = jsonObject.optString("data")
-            errorMsg = jsonObject.optString("errorMsg")
-        } catch (e: JSONException) {
-            e.printStackTrace()
-        }
-        try {
-            dismiss()
-            val gsonType = getTType(this.javaClass)
-            if (statusCode == 0 && !TextUtils.isEmpty(o.toString())) {
-                if ("class java.lang.String" == gsonType.toString()) {
-                    onSuccess(o.toString() as T)
-                } else {
-                    val o1: T = Gson().fromJson(o.toString(), gsonType)
-                    onSuccess(o1)
+        response?.apply {
+            Logger.e(TAG + ":\n${call?.request()}")
+            try {
+                val jsonObject = JSONObject(o.toString())
+                statusCode = jsonObject.optInt("code")
+                data = jsonObject.optString("data")
+                errorMsg = jsonObject.optString("msg")
+            } catch (e: JSONException) {
+                e.printStackTrace()
+            }
+            if (code() == 200) {
+                LogUtils.e(TAG, "接口返回数据 $o")
+                try {
+                    val gsonType = getTType(this@HttpCallBack.javaClass)
+                    if (statusCode == 0 && !TextUtils.isEmpty(o.toString())) {
+                        if ("class java.lang.String" == gsonType.toString()) {
+                            onSuccess(o.toString() as T)
+                        } else {
+                            val o1: T = Gson().fromJson(o.toString(), gsonType)
+                            onSuccess(o1)
+                        }
+                    } else {
+                        onFail(statusCode, errorMsg)
+                    }
+                } catch (e: Exception) {
+                    LogUtils.e(TAG, "Exception $e")
+                    onError(e)
                 }
             } else {
+                LogUtils.e(TAG, "接口错误 $o")
                 onFail(statusCode, errorMsg)
             }
-        } catch (e: Exception) {
-            Logger.e("Exception $e")
-            onError(e)
+            dismiss()
         }
     }
 
@@ -91,7 +99,7 @@ abstract class HttpCallBack<T> : AbsCallback<Any?>, IHttpManager<T?> {
         dismiss()
         if (!isNetConnected()) {
             showToast("NetWork Error")
-        } else if (response?.code == 503) {
+        } else if (response?.code() == 503) {
             showToast("服务器重启中...")
         }
         onError(e)
@@ -116,6 +124,6 @@ abstract class HttpCallBack<T> : AbsCallback<Any?>, IHttpManager<T?> {
 
     var dialog: MyProgressDialog? = null
     fun dismiss() {
-        if (null != dialog && dialog!!.isShowing()) dialog?.dismiss()
+        if (null != dialog && dialog?.isShowing() == true) dialog?.dismiss()
     }
 }

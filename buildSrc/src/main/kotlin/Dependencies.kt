@@ -20,9 +20,9 @@ object App {
 object Android {
     const val kotlin = "1.6.10"
     const val gradle = "7.0.3"
-    const val compileSdkVersion = 31
+    const val compileSdkVersion = 32
     const val minSdkVersion = 26
-    const val targetSdkVersion = 31
+    const val targetSdkVersion = 32
     const val versionCode = 1
     const val versionName = "1.0"
 
@@ -49,9 +49,9 @@ object Support {
  * 第三方库依赖
  * */
 object Dependencies {
-    const val android_common = "com.github.R-Gang:Android-Common:v0.1.6-beta.6@aar"
+    const val android_common = "com.github.R-Gang:Android-Common:v0.1.7-beta.0" // 常用基础扩展类
 
-    const val tools_utils = "com.github.R-Gang:Tools-Utils:v1.0.0"
+    const val tools_utils = "com.github.R-Gang:Tools-Utils:v1.0.1-beta.1" // 实用工具类
 
     const val androidx_multidex = "androidx.multidex:multidex:2.0.1" // Dex处理
 
@@ -70,6 +70,7 @@ object Dependencies {
     const val logger = "com.orhanobut:logger:2.2.0" // 日志工具类 logger
     const val loadingDialog = "com.github.ForgetAll:LoadingDialog:v1.1.2" // LoadingDialog
 
+    const val permissions = "com.github.dfqin:grantor:2.5" // 动态权限申请
 
     val addRepos: (handler: RepositoryHandler) -> Unit = {
         it.google()
@@ -80,7 +81,11 @@ object Dependencies {
         it.maven { url = URI("https://maven.aliyun.com/repository/central") }
         it.maven { url = URI("https://maven.aliyun.com/repository/google") }
         it.maven { url = URI("https://maven.aliyun.com/repository/jcenter") }
-        it.maven { url = URI("https://jitpack.io") }
+        it.maven {
+            url = URI("https://jitpack.io")
+            val authToken = "jp_7hqsbgvlrlh8sua6dainpc08j4"
+            credentials { username = authToken }
+        }
         it.maven { url = URI("https://developer.huawei.com/repo/") }
         it.maven { url = URI("https://dl.google.com/dl/android/maven2/") }
         it.maven { url = URI("https://maven.youzanyun.com/repository/maven-releases") }

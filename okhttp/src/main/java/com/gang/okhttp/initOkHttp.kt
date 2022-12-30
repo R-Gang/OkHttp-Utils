@@ -1,10 +1,7 @@
 package com.gang.okhttp
 
-import android.util.Log
-import com.lzy.okhttputils.BuildConfig
 import com.lzy.okhttputils.OkHttpUtils
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import java.util.concurrent.TimeUnit
 
 /**
@@ -18,24 +15,17 @@ object initOkHttp {
     val TAG = "initOkhttp"
 
 
-    fun initVersionupdate() {
+    fun initVersionupdate(): OkHttpUtils {
         // 版本更新
-        if (Config.isOpenVersionUpdate) {
-            // okhttp-utils
-            okHttpUtils(20 * 1000).debug(TAG, BuildConfig.DEBUG)
-        }
+        return okHttpUtils(20 * 1000)
     }
 
     fun okHttpUtils(timeout: Long): OkHttpUtils {
-        val loggingInterceptor = HttpLoggingInterceptor { message ->
-            Log.e(TAG, "initClient: $message")
-        }
-        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+        // okhttp-utils
         OkHttpClient.Builder()
             .connectTimeout(timeout, TimeUnit.MILLISECONDS)
             .readTimeout(timeout, TimeUnit.MILLISECONDS)
             .writeTimeout(timeout, TimeUnit.MILLISECONDS)
-            .addInterceptor(loggingInterceptor)
         return OkHttpUtils.getInstance()
     }
 

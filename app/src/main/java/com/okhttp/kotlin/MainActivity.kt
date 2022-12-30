@@ -4,7 +4,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.alibaba.android.arouter.launcher.ARouter
-import com.gang.library.bean.BaseDataModel
+import com.gang.okhttp.bean.BaseDataModel
+import com.gang.tools.kotlin.dimension.dpF
 import com.gang.tools.kotlin.utils.showToast
 import com.okhttp.kotlin.base.Constants
 import com.okhttp.kotlin.databinding.ActivityMainBinding
@@ -34,8 +35,12 @@ class MainActivity : AppCompatActivity() {
         方式2 数据绑定
         */
         mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-
-
+        mainBinding.apply {
+            loadingFrame.noInfo?.apply {
+                textSize = 16.dpF
+                setTextColor(getColor(R.color.b0b2b6))
+            }
+        }
         mainBinding.mainData = this
 
     }
@@ -46,8 +51,14 @@ class MainActivity : AppCompatActivity() {
          */
         HttpManager.instance.clientConfig("HttpApiActivity",
             object : ApiCallBack<BaseDataModel<Objects>>() {
-                override fun onSuccess(date: BaseDataModel<Objects>?) {
+                override fun onSuccess(data: BaseDataModel<Objects>?) {
                     Logger.e("copyMode===the src is not existed")
+
+                    if (data != null) {
+                        mainBinding.loadingFrame.delayShowContainer(true)
+                    } else {
+                        mainBinding.loadingFrame.setNoShown(true)
+                    }
                 }
 
                 override fun onFail(statusCode: Int?, errorMsg: String?) {

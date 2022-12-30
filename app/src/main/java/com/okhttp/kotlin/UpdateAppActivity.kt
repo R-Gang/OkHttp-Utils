@@ -4,14 +4,16 @@ import android.Manifest
 import android.os.Bundle
 import android.text.TextUtils
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.gang.library.common.ext.permissions.BasePermissionActivity
-import com.gang.library.common.ext.permissions.PermissionCallBackM
-import com.gang.library.common.utils.LogUtils
+import com.gang.library.base.BaseActivity
+import com.gang.library.common.Permission.requestPermission
 import com.gang.okhttp.kotlin.AppHttpUtil
+import com.gang.okhttp.kotlin.progress.MyProgressDialog
 import com.gang.okhttp.version.UpdateBean
 import com.gang.okhttp.version.UpdateCallback
 import com.gang.okhttp.version.UpdateHandle
 import com.gang.okhttp.version.UpdateHandle.Companion.showDialogFragment
+import com.gang.tools.kotlin.utils.LogUtils
+import com.github.dfqin.grantor.PermissionListener
 import com.okhttp.kotlin.base.Constants
 import com.okhttp.kotlin.base.Constants.ACTIVITY_URL_UPDATEAPP
 import com.vector.update_app.UpdateAppBean
@@ -23,21 +25,21 @@ import org.json.JSONObject
  * 版本更新使用方式示例
  */
 @Route(path = ACTIVITY_URL_UPDATEAPP)
-class UpdateAppActivity : BasePermissionActivity() {
+class UpdateAppActivity : BaseActivity() {
     override val layoutId: Int
         get() = R.layout.activity_update_app
 
     override fun initView(savedInstanceState: Bundle?) {
 
         //动态权限申请
-        requestPermission(
-            Constants.REQUEST_CODE_WRITE, arrayOf(
+        // Constants.REQUEST_CODE_WRITE,
+        // getString(R.string.rationale_file),
+        requestPermission(mContext = this,
+            permissions = arrayOf(
                 Manifest.permission.READ_EXTERNAL_STORAGE,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
-            ),
-            getString(R.string.rationale_file),
-            object : PermissionCallBackM {
-                override fun onPermissionGrantedM(requestCode: Int, vararg perms: String?) {
+            ), permissAction = object : PermissionListener {
+                override fun permissionGranted(permission: Array<out String>) {
 
                     val updateHandle = UpdateHandle(object : UpdateCallback {
 
@@ -57,7 +59,8 @@ class UpdateAppActivity : BasePermissionActivity() {
                                     .setApkFileUrl(jsonObject.optString("apkFileUrl"))
                                     .setUpdateLog(jsonObject.optString("description")).isConstraint =
                                     jsonObject.optBoolean("constraint") && jsonObject.optString(
-                                        "ifUp") == "1"
+                                        "ifUp"
+                                    ) == "1"
                             } catch (e: Exception) {
                                 e.printStackTrace()
                             }
@@ -83,7 +86,8 @@ class UpdateAppActivity : BasePermissionActivity() {
                             )
                             //有新版本
                             if (!TextUtils.isEmpty(clientVersionName) && !TextUtils.isEmpty(
-                                    serverVersionName)
+                                    serverVersionName
+                                )
                                 && clientVersionCode < serverVersionCode && clientVersionName != serverVersionName
                             ) {
                                 LogUtils.d(
@@ -93,9 +97,11 @@ class UpdateAppActivity : BasePermissionActivity() {
                                 // 使用方式1，调用系统默认的样式
 //                                updateAppManager.showDialogFragment()
                                 // 使用方式2，调用自定义的样式
-                                showDialogFragment(this@UpdateAppActivity,
+                                showDialogFragment(
+                                    this@UpdateAppActivity,
                                     updateApp,
-                                    updateAppManager)
+                                    updateAppManager
+                                )
                             }
 
                         }
@@ -112,8 +118,7 @@ class UpdateAppActivity : BasePermissionActivity() {
                         .checkNewApp(updateHandle)
                 }
 
-                override fun onPermissionDeniedM(requestCode: Int, vararg perms: String?) {
-                    TODO("Not yet implemented")
+                override fun permissionDenied(permission: Array<out String>) {
                     LogUtils.e("UpdateAppActivity", "TODO: WRITE_EXTERNAL_STORAGE Denied")
                 }
 
@@ -121,6 +126,6 @@ class UpdateAppActivity : BasePermissionActivity() {
     }
 
     override fun initData() {
-
+        MyProgressDialog(this).show()
     }
 }

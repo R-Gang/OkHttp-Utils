@@ -79,13 +79,13 @@ class Api {
                 params.putAll(map as HashMap) // 不加密的参数
 
                 OkHttpUtils.instance.postHeaderJsonRequest(
-                    tag,
-                    url,
-                    params,
-                    getHeaders(),
-                    null,
-                    json,
-                    callBack
+                    tag = tag,
+                    url = url,
+                    map = params,
+                    headers = getHeaders(),
+                    httpParams = null,
+                    json = json,
+                    callBack = callBack
                 )
             } catch (e: Exception) {
                 e.printStackTrace()

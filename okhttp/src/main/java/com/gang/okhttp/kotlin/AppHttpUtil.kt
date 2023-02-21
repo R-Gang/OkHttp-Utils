@@ -3,6 +3,8 @@ package com.gang.okhttp.kotlin
 import com.gang.tools.kotlin.utils.isNetConnected
 import com.lzy.okhttputils.callback.FileCallback
 import com.lzy.okhttputils.callback.StringCallback
+import com.lzy.okhttputils.model.HttpHeaders
+import com.lzy.okhttputils.model.HttpParams
 import com.lzy.okhttputils.request.BaseRequest
 import com.orhanobut.logger.Logger
 import com.vector.update_app.HttpManager
@@ -17,7 +19,12 @@ import java.net.SocketTimeoutException
  * Created by haoruigang
  * on 2017/6/19 0019.
  */
-class AppHttpUtil : HttpManager {
+open class AppHttpUtil(
+    val headers: HttpHeaders? = null,
+    val httpParams: HttpParams? = null,
+    val json: String? = "",
+    val isShowLog: Boolean = false, // 默认不显示日志
+) : HttpManager {
     /**
      * 异步get
      *
@@ -30,10 +37,14 @@ class AppHttpUtil : HttpManager {
         params: Map<String, String>,
         callBack: HttpManager.Callback,
     ) {
-        OkHttpUtils.instance.getOkHttpJsonRequest("app版本更新",
-            url,
-            params,
-            object : StringCallback() {
+        OkHttpUtils.instance.getHeaderJsonRequest(
+            tag = "app版本更新",
+            url = url,
+            map = params as HashMap<String, String>,
+            headers = headers,
+            httpParams = httpParams,
+            isShowLog = isShowLog,
+            callBack = object : StringCallback() {
 
                 override fun onSuccess(t: String?, call: Call?, response: Response?) {
                     Logger.e("接口返回数据\n$t")
@@ -74,6 +85,7 @@ class AppHttpUtil : HttpManager {
         return "未知异常，请稍候重试"
     }
 
+
     /**
      * 异步post
      *
@@ -86,11 +98,15 @@ class AppHttpUtil : HttpManager {
         params: Map<String, String>,
         callBack: HttpManager.Callback,
     ) {
-        OkHttpUtils.instance.postOkHttpJsonRequest(tag = "app版本更新",
+        OkHttpUtils.instance.postHeaderJsonRequest(
+            tag = "app版本更新",
             url = url,
-            map = params,
+            map = params as HashMap<String, String>,
+            headers = headers,
+            httpParams = httpParams,
+            json = json,
+            isShowLog = isShowLog,
             callBack = object : StringCallback() {
-
                 override fun onSuccess(t: String?, call: Call?, response: Response?) {
                     Logger.e("接口返回数据\n$t")
                     callBack.onResponse(t)

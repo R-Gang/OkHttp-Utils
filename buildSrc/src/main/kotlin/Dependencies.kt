@@ -51,7 +51,7 @@ object Support {
 object Dependencies {
     const val android_common = "com.github.R-Gang:Android-Common:v0.1.7-beta.0" // 常用基础扩展类
 
-    const val tools_utils = "com.github.R-Gang:Tools-Utils:v1.0.1-beta.1" // 实用工具类
+    const val tools_utils = "com.github.R-Gang:Tools-Utils:v1.0.1-beta.2" // 实用工具类
 
     const val androidx_multidex = "androidx.multidex:multidex:2.0.1" // Dex处理
 

@@ -6,7 +6,7 @@ import com.vector.update_app.UpdateAppManager
 /**
  * 新版本版本检测回调
  */
-interface UpdateCallback {
+open interface UpdateCallback {
 
     /**
      * 解析json,自定义协议

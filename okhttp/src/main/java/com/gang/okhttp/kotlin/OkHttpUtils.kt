@@ -48,7 +48,15 @@ class OkHttpUtils {
         map: Map<String, String>?,
         callBack: AbsCallback<*>?,
     ) {
-        postHeaderJsonRequest(tag, url, map as HashMap<String, String>?, null, null, "", callBack)
+        postHeaderJsonRequest(
+            tag = tag,
+            url = url,
+            map = map as HashMap<String, String>?,
+            headers = null,
+            httpParams = null,
+            json = "",
+            callBack = callBack
+        )
     }
 
     /**
@@ -108,8 +116,8 @@ class OkHttpUtils {
         headers: HttpHeaders?,
         httpParams: HttpParams?,
         json: String? = "",
-        callBack: AbsCallback<*>?,
         isShowLog: Boolean = false, // 默认不显示日志
+        callBack: AbsCallback<*>?,
     ) {
         if (map != null) {
             try {

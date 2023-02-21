@@ -30,7 +30,7 @@ import java.io.File
  * @UpdateRemark:   更新说明：
  * @Version:
  */
-class UpdateHandle(updateCallback: UpdateCallback) :
+open class UpdateHandle(updateCallback: UpdateCallback) :
     com.vector.update_app.UpdateCallback() {
 
     private val updateCallback = updateCallback
@@ -68,7 +68,7 @@ class UpdateHandle(updateCallback: UpdateCallback) :
             mActivity: Activity,
             updateApp: UpdateAppBean,
             updateAppManager: UpdateAppManager,
-        ) : AlertDialog?{
+        ): AlertDialog? {
             val targetSize = updateApp.targetSize
             val updateLog = updateApp.updateLog
             var msg: String? = ""
@@ -96,10 +96,14 @@ class UpdateHandle(updateCallback: UpdateCallback) :
             val btnOk = dialogView.findViewById<Button>(R.id.btn_ok)
             btnOk.setOnClickListener { v: View? ->
                 //动态权限申请
-                ActivityCompat.requestPermissions(mActivity,
-                    arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE),
-                    9090)
+                ActivityCompat.requestPermissions(
+                    mActivity,
+                    arrayOf(
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    ),
+                    9090
+                )
             }
             btnClose.setOnClickListener { v: View? -> dialog.dismiss() }
             val llCancel = dialogView.findViewById<LinearLayout>(R.id.ll_cancel)

@@ -114,6 +114,7 @@ class UpdateAppActivity : BaseActivity() {
                         .setUpdateUrl(Constants.VERSION_PATH)
                         .handleException { obj: java.lang.Exception -> obj.printStackTrace() } //实现httpManager接口的对象
                         .setHttpManager(AppHttpUtil())
+                        //.setParams(hashMapOf())
                         .build()
                         .checkNewApp(updateHandle)
                 }

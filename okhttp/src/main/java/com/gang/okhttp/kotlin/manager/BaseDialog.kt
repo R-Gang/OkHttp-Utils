@@ -17,6 +17,7 @@ import androidx.databinding.ViewDataBinding
 open class BaseDialog<VB : ViewDataBinding>(
     context: Context?,
     layoutResId: Int,
+    cancel: Boolean = false, // 是否可点击其他区域取消，默认不可以
     themeResId: Int = com.gang.okhttp.R.style.DialogNoTheme
 ) : AlertDialog(context, themeResId) {
 
@@ -26,6 +27,8 @@ open class BaseDialog<VB : ViewDataBinding>(
 
     init {
         dialog.setView(mBinding?.root)
+        dialog?.setCancelable(cancel)
+        dialog?.show()
     }
 }
 

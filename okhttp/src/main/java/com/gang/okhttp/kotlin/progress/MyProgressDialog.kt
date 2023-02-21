@@ -12,7 +12,7 @@ import com.xiasuhuei321.loadingdialog.view.LoadingDialog
  * @Author:         haoruigang
  * @CreateDate:     2020/8/3 15:56
  */
-class MyProgressDialog : LoadingDialog {
+open class MyProgressDialog : LoadingDialog {
 
     private var activity: Activity
 
@@ -38,7 +38,7 @@ class MyProgressDialog : LoadingDialog {
         init()
     }
 
-    private fun init() {
+    fun init() {
         setLoadingText("加载中")
             .setSuccessText("加载成功") //显示加载成功时的文字
             .setInterceptBack(isDismiss)

@@ -29,14 +29,14 @@ abstract class HttpCallBack<T> : AbsCallback<Any?>, IHttpManager<T?> {
 
     constructor() {}
 
-    // 是否可取消请求，默认可取消  haoruigang  2017-11-28 11:12:09
-    constructor(activity: Activity, isDismiss: Boolean) {
-        dialog = if (isDismiss) MyProgressDialog(activity, true) else MyProgressDialog(activity)
+    constructor(activity: Activity) {
+        dialog = MyProgressDialog(activity)
         dialog?.show()
     }
 
-    constructor(activity: Activity) {
-        dialog = MyProgressDialog(activity)
+    // 是否可取消请求，默认可取消  haoruigang  2017-11-28 11:12:09
+    constructor(activity: Activity, isDismiss: Boolean) {
+        dialog = if (isDismiss) MyProgressDialog(activity, true) else MyProgressDialog(activity)
         dialog?.show()
     }
 
@@ -126,4 +126,5 @@ abstract class HttpCallBack<T> : AbsCallback<Any?>, IHttpManager<T?> {
     fun dismiss() {
         if (null != dialog && dialog?.isShowing() == true) dialog?.dismiss()
     }
+
 }

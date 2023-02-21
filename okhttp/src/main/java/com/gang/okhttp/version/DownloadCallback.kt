@@ -54,4 +54,5 @@ open class DownloadCallback : DownloadService.DownloadCallback {
     override fun onInstallAppAndAppOnForeground(file: File?): Boolean {
         return false
     }
+
 }

@@ -17,7 +17,7 @@ import com.gang.okhttp.oss.callback.ProgressCallback
 /**
  * Created by haoruigang on 2016/9/2.
  */
-class AliYunOss(context: Context?) {
+open class AliYunOss(context: Context?) {
 
     var oss: OSS
 

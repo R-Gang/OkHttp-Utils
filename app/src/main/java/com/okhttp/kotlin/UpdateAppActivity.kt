@@ -16,6 +16,7 @@ import com.gang.tools.kotlin.utils.LogUtils
 import com.github.dfqin.grantor.PermissionListener
 import com.okhttp.kotlin.base.Constants
 import com.okhttp.kotlin.base.Constants.ACTIVITY_URL_UPDATEAPP
+import com.okhttp.kotlin.utils.LoadingDialog
 import com.vector.update_app.UpdateAppBean
 import com.vector.update_app.UpdateAppManager
 import com.vector.update_app.utils.AppUpdateUtils
@@ -128,5 +129,6 @@ class UpdateAppActivity : BaseActivity() {
 
     override fun initData() {
         MyProgressDialog(this).show()
+        LoadingDialog(this, "加载中...", true)
     }
 }

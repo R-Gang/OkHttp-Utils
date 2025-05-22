@@ -124,7 +124,7 @@ abstract class HttpCallBack<T> : AbsCallback<Any?>, IHttpManager<T?> {
 
     var dialog: MyProgressDialog? = null
     fun dismiss() {
-        if (null != dialog && dialog?.isShowing() == true) dialog?.dismiss()
+        if (null != dialog && dialog?.isShowing() == true) dialog?.close()
     }
 
 }

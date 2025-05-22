@@ -24,7 +24,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <Button
-                android:id="@+id/btnBindable"
+                android:id="@+id/btnOkhttp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
@@ -32,20 +32,39 @@
                 android:text="Okhttp演示" />
 
             <Button
-                android:id="@+id/toARouter"
+                android:id="@+id/btnVersion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/btnBindable"
+                android:layout_below="@id/btnOkhttp"
                 android:layout_marginStart="5dp"
-                android:layout_toEndOf="@id/btnBindable"
+                android:layout_toEndOf="@id/btnOkhttp"
                 android:onClick="@{()->mainData.onToUpdateApp()}"
                 android:text="@string/update_demo" />
+
+            <Button
+                android:id="@+id/btnStartTCP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/btnVersion"
+                android:layout_marginStart="5dp"
+                android:onClick="@{()->mainData.startTCPServer()}"
+                android:text="启动TCPServer" />
+
+            <Button
+                android:id="@+id/btnStopTCP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/btnVersion"
+                android:layout_marginStart="5dp"
+                android:layout_toEndOf="@id/btnStartTCP"
+                android:enabled="false"
+                android:onClick="@{()->mainData.stopTCPServer()}"
+                android:text="停止TCPServer" />
 
             <com.gang.okhttp.kotlin.empty.LoadingFrameView
                 android:id="@+id/loadingFrame"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_centerInParent="true"
                 app:fv_noIcon="@mipmap/icon_no_info"
                 app:fv_noInfo="@string/string_empty_no_info" />
 

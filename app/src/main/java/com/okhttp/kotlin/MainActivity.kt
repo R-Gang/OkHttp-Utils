@@ -11,8 +11,12 @@ import com.okhttp.kotlin.base.Constants
 import com.okhttp.kotlin.databinding.ActivityMainBinding
 import com.okhttp.kotlin.http.ApiCallBack
 import com.okhttp.kotlin.http.HttpManager
+import com.okhttp.kotlin.utils.Util
 import com.orhanobut.logger.Logger
-import java.util.*
+import java.net.ServerSocket
+import java.net.Socket
+import java.util.Objects
+import kotlin.concurrent.thread
 
 
 class MainActivity : AppCompatActivity() {
@@ -49,7 +53,8 @@ class MainActivity : AppCompatActivity() {
         /**
          * haoruigang 2018-3-30 10:31:11   获取验证码接口
          */
-        HttpManager.instance.clientConfig("HttpApiActivity",
+        HttpManager.instance.clientConfig(
+            "HttpApiActivity",
             object : ApiCallBack<BaseDataModel<Objects>>() {
                 override fun onSuccess(data: BaseDataModel<Objects>?) {
                     Logger.e("copyMode===the src is not existed")
@@ -72,15 +77,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onToUpdateApp() {
-        ARouter.getInstance()
-            .build(Constants.ACTIVITY_URL_UPDATEAPP)
-            .navigation(this)
+        ARouter.getInstance().build(Constants.ACTIVITY_URL_UPDATEAPP).navigation(this)
     }
 
 
     private var headImage: String? = ""
-    fun aliyunOss() {
-        /*val mImageName =
+    fun aliyunOss() {/*val mImageName =
             DateUtils.getCurTimeLong("yyyyMMddHHmmss") + UserManager.INSTANCE.userData.user_id + ".jpg"
         //Url
         if (mImageName != "") {
@@ -88,6 +90,63 @@ class MainActivity : AppCompatActivity() {
         }*/
         // 阿里云使用方式
         // AliYunOss.getInstance(this)?.upload(mImageName, "", null)
+    }
+
+    var server: ServerSocket? = null
+    var client: Socket? = null
+    fun startTCPServer() {
+        mainBinding.btnStartTCP.isEnabled = false
+        mainBinding.btnStopTCP.isEnabled = true
+        // 模拟单片机TCP服务端
+        thread {
+            val buffer = ByteArray(1024)
+            server = ServerSocket(13355)
+            client = server?.accept()
+
+            /// TCP参数调优
+            // 设置Socket缓冲区大小（需>网络带宽时延积）
+            server?.receiveBufferSize = 256 * 1024  // 256KB [1]()
+
+            client?.sendBufferSize = 512 * 1024     // 512KB [2]()
+            // 禁用Nagle算法（适用于实时传输场景）
+            client?.tcpNoDelay = true
+            /// TCP参数调优
+
+            while (true) {
+                try {
+
+                    val output = client?.getOutputStream()
+                    val input = client?.getInputStream()
+
+                    val len = input?.read(buffer)
+                    val hex = Util.getInstance().bytesToString(buffer).substring(0, len!! * 3)
+                    val hex2 = Util.getInstance().getHexBytes(hex.replace(" ", ""))
+                    output?.write(hex2)
+
+                    //val out = PrintWriter(output, true)
+                    //out.println(hex2)
+
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+
+        }
+
+        /*// APP客户端连接
+        Socket("127.0.0.1", 13355).apply {
+            val hex = Util.getInstance().getHexBytes("FF 10 01 00 01 00 12 FE".replace(" ", ""))
+            outputStream.write(hex)
+            outputStream.flush()
+        }*/
+    }
+
+    fun stopTCPServer() {
+        mainBinding.btnStartTCP.isEnabled = true
+        mainBinding.btnStopTCP.isEnabled = false
+
+        client?.close()
+        server?.close()
     }
 
 }

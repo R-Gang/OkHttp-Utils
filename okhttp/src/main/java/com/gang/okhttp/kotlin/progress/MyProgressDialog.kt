@@ -14,7 +14,9 @@ import com.xiasuhuei321.loadingdialog.view.LoadingDialog
  */
 open class MyProgressDialog : LoadingDialog {
 
-    private var activity: Activity
+    var activity: Activity
+    var isDismiss = false
+    var isShow = false
 
     /**
      * 不可取消(true不可，false可取消)
@@ -23,7 +25,7 @@ open class MyProgressDialog : LoadingDialog {
      * @param isDismiss
      */
     constructor(activity: Activity, isDismiss: Boolean) : super(activity) {
-        Companion.isDismiss = isDismiss
+        this.isDismiss = isDismiss
         this.activity = activity
         init()
     }
@@ -48,8 +50,8 @@ open class MyProgressDialog : LoadingDialog {
 
     override fun show() {
         if (!activity.isFinishing) {
-            super.show()
             isShow = true
+            super.show()
         }
     }
 
@@ -57,16 +59,11 @@ open class MyProgressDialog : LoadingDialog {
         return isShow
     }
 
-    fun dismiss() {
+    override fun close() {
         if (!activity.isFinishing) {
-            close()
             isShow = false
+            super.close()
         }
     }
 
-    companion object {
-
-        var isDismiss = false
-        var isShow = false
-    }
 }
